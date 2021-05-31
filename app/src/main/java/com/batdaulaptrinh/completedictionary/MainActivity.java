@@ -265,17 +265,17 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
 
     }
-
-    @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
-    }
+//
+//    @Override
+//    public void onBackPressed() {
+//        if (doubleBackToExitPressedOnce) {
+//            super.onBackPressed();
+//        }
+//
+//        this.doubleBackToExitPressedOnce = true;
+//        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
+//
+//        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+//    }
 
 }

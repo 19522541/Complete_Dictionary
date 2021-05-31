@@ -35,6 +35,8 @@ public class wordInfo extends AppCompatActivity {
     TextView textExample;
     SearchView searchView;
     ImageView thumbnail;
+    TextView textSynonyms;
+    TextView textAntonyms;
     static com.batdaulaptrinh.completedictionary.DatabaseHelper myDbHelper;
 
     @Override
@@ -50,6 +52,8 @@ public class wordInfo extends AppCompatActivity {
         textExample = findViewById(R.id.text_example);
         searchView = findViewById(R.id.search_view);
         thumbnail = findViewById(R.id.thumbnail);
+        textSynonyms = findViewById(R.id.text_synonyms);
+
         ImageButton btnSpeakBritish = findViewById(R.id.button_speaker_british);
         ImageButton btnSpeakAmerica = findViewById(R.id.button_speaker_america);
 
@@ -76,10 +80,17 @@ public class wordInfo extends AppCompatActivity {
             type = c.getString(c.getColumnIndex("type"));
             textWord.setText(c.getString(c.getColumnIndex("en_word")));
             example = c.getString(c.getColumnIndex("example"));
+            synonyms = c.getString(c.getColumnIndex("synonyms"));
+            if(synonyms!=null){
+                String[] parts = synonyms.split(",");
+                synonyms = parts[0];
+            }
+
             textDefinition.setText(enDefinition);
             textIPAAmerica.setText(ipa_us);
             textIPABritish.setText(ipa_uk);
             textExample.setText(example);
+            textSynonyms.setText(synonyms);
 
             String bitmap = c.getString(c.getColumnIndex("thumbnail"));
             System.out.println("code here" +bitmap);
