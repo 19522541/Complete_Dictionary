@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        app:srcCompat="@drawable/icon" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp">
+        <!-- what for ???-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center|right"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center|right"
+                android:orientation="horizontal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingTop="20dp">
+
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_view_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/search_bar"
+                    android:tooltipText="search here" />
+                <!-- what for ???-->
+                <ListView
+                    android:id="@+id/rs_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="652dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_bg"
+        android:layout_width="match_parent"
+        android:layout_height="517dp"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:id="@id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="161dp"
+            android:layout_marginTop="220dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/rememberGameBt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                app:cardElevation="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/cardGameText"
+                        android:layout_width="136dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="7dp"
+                        android:gravity="center_horizontal"
+                        android:text="Remember Game"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:id="@+id/rememberGameImg"
+                        android:layout_width="91dp"
+                        android:layout_height="76dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="43dp"
+                        android:layout_marginLeft="43dp"
+                        android:layout_marginEnd="42dp"
+                        android:layout_marginRight="42dp"
+                        android:layout_marginBottom="45dp"
+                        app:srcCompat="@drawable/remember_game" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/settingBt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                app:cardElevation="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/rememberGameText"
+                        android:layout_width="117dp"
+                        android:layout_height="29dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="9dp"
+                        android:gravity="center_horizontal"
+                        android:text="Setting"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:id="@+id/settingImg"
+                        android:layout_width="91dp"
+                        android:layout_height="76dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="43dp"
+                        android:layout_marginLeft="43dp"
+                        android:layout_marginEnd="42dp"
+                        android:layout_marginRight="42dp"
+                        android:layout_marginBottom="45dp"
+                        app:srcCompat="@drawable/setting" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="161dp"
+            android:layout_marginTop="28dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/historyBt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                app:cardElevation="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/homeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginLeft="56dp"
+                        android:layout_marginEnd="62dp"
+                        android:layout_marginRight="62dp"
+                        android:layout_marginBottom="13dp"
+                        android:gravity="center_horizontal"
+                        android:text="History"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:id="@+id/historyImg"
+                        android:layout_width="91dp"
+                        android:layout_height="76dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginLeft="45dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginBottom="46dp"
+                        app:srcCompat="@drawable/history" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardGameBt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                app:cardElevation="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/history"
+                        android:layout_width="87dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginEnd="39dp"
+                        android:layout_marginRight="39dp"
+                        android:layout_marginBottom="13dp"
+                        android:gravity="center_horizontal"
+                        android:text="Card Game"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:id="@+id/cardGameImg"
+                        android:layout_width="91dp"
+                        android:layout_height="76dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="43dp"
+                        android:layout_marginLeft="43dp"
+                        android:layout_marginEnd="42dp"
+                        android:layout_marginRight="42dp"
+                        android:layout_marginBottom="45dp"
+                        app:srcCompat="@drawable/cardgame" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
