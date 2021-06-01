@@ -24,8 +24,9 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Dialog">
         <!--buttons color-->
+        <item name="android:windowNoTitle">true</item>
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 

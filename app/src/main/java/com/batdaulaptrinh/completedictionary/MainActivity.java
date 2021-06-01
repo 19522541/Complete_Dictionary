@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -47,19 +48,19 @@ public class MainActivity extends AppCompatActivity {
         Intent rememberIt = new Intent(this, com.batdaulaptrinh.completedictionary.rememberGame.class);
         Intent cardGameIt = new Intent(this, com.batdaulaptrinh.completedictionary.cardGame.class);
         setting.setOnClickListener(v -> {
-            setContentView(R.layout.activity_setting);
+//            setContentView(R.layout.activity_setting);
             startActivity(settingIt);
         });
         history.setOnClickListener(v -> {
-            setContentView(R.layout.activity_history);
+//            setContentView(R.layout.activity_history);
             startActivity(historyIt);
         });
         rememberGame.setOnClickListener(v -> {
-            setContentView(R.layout.activity_remember_game);
+//            setContentView(R.layout.activity_remember_game);
             startActivity(rememberIt);
         });
         cardGame.setOnClickListener(v -> {
-            setContentView(R.layout.activity_card_game);
+//            setContentView(R.layout.activity_card_game);
             startActivity(cardGameIt);
         });
 
@@ -153,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, com.batdaulaptrinh.completedictionary.wordInfo.class);
                 intent.putExtra("en_word",clicked_word);
-                startActivity(intent);
                 startActivity(intent);
 
                 return true;
@@ -277,5 +277,8 @@ public class MainActivity extends AppCompatActivity {
 //
 //        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
 //    }
+
+    //HuyThanh1x
+
 
 }

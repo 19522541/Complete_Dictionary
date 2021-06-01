@@ -15,9 +15,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-import java.io.ByteArrayInputStream;
-import java.util.Arrays;
-
 public class wordInfo extends AppCompatActivity {
     String enWord;
     public String enDefinition;
@@ -103,16 +100,23 @@ public class wordInfo extends AppCompatActivity {
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             thumbnail.setImageBitmap(decodedByte);
 
+
+            myDbHelper.insertHistory(enWord,enDefinition);
+
         }
-
     }
-
-
-    protected static void openDatabase() {
+    protected static void openDatabase()
+    {
         try {
             myDbHelper.openDataBase();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -16,7 +16,7 @@ import java.io.OutputStream;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private String DB_PATH = null;
-    private static String DB_NAME = "demoxx.db";
+    private static String DB_NAME = "demo.db";
     private SQLiteDatabase myDataBase;
     private final Context myContext;
 
@@ -51,14 +51,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String myPath = DB_PATH + DB_NAME;
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 
-        } catch (SQLiteException e) {
+        } catch (SQLiteException e)
+        {
             //
         }
         if (checkDB != null) {
             checkDB.close();
         }
 
-        return checkDB != null;
+        return checkDB != null ? true : false;
     }
 
 
@@ -123,13 +124,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void insertHistory(String text) {
-        myDataBase.execSQL("INSERT INTO history(word) VALUES(UPPER('" + text + "'))");
+    public void insertHistory(String word,String definition) {
+        myDataBase.execSQL("INSERT INTO history(en_word,en_definition) VALUES(UPPER('" + word + "'),'" + definition + "')");
+
+    }
+
+    public void insertHistory(String word) {
+        myDataBase.execSQL("INSERT INTO history(en_word) VALUES(UPPER('" + word + "'))");
 
     }
 
     public Cursor getHistory() {
-        Cursor c = myDataBase.rawQuery("select distinct  word, en_definition from history h join words w on h.word==w.en_word order by h._id desc", null);
+        Cursor c = myDataBase.rawQuery("select distinct  en_word, en_definition from history", null);
         return c;
     }
 
