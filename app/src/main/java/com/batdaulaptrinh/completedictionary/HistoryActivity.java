@@ -31,7 +31,9 @@ public class HistoryActivity extends AppCompatActivity {
     RelativeLayout emptyHistory;
     Cursor cursorHistory;
     static boolean databaseOpened = false;
-
+    static void changeFavourite(String word,int favourite){
+        myDbHelper.changeFavourite(word,favourite);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +105,7 @@ public class HistoryActivity extends AppCompatActivity {
             cursorHistory = myDbHelper.getHistory();
             if (cursorHistory.moveToFirst()) {
                 do {
-                    h = new History(cursorHistory.getString(cursorHistory.getColumnIndex("en_word")), cursorHistory.getString(cursorHistory.getColumnIndex("en_definition")));
+                    h = new History(cursorHistory.getString(cursorHistory.getColumnIndex("en_word")), cursorHistory.getString(cursorHistory.getColumnIndex("en_definition")),cursorHistory.getInt(cursorHistory.getColumnIndex("favourite")));
                     historyList.add(h);
                 }
                 while (cursorHistory.moveToNext());

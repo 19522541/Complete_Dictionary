@@ -51,8 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String myPath = DB_PATH + DB_NAME;
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 
-        } catch (SQLiteException e)
-        {
+        } catch (SQLiteException e) {
             //
         }
         if (checkDB != null) {
@@ -124,19 +123,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void insertHistory(String word,String definition) {
-        myDataBase.execSQL("INSERT INTO history(en_word,en_definition) VALUES(UPPER('" + word + "'),'" + definition + "')");
+    public void insertHistory(String word, String definition, int favourite) {
+        myDataBase.execSQL("INSERT INTO history(en_word,en_definition,favourite) VALUES(UPPER('" + word + "'),'" + definition + "','" + favourite + "')");
 
     }
 
 
     public Cursor getHistory() {
-        Cursor c = myDataBase.rawQuery("select distinct  en_word, en_definition from history", null);
+        Cursor c = myDataBase.rawQuery("select distinct  en_word, en_definition,favourite from history", null);
         return c;
     }
+
     public Cursor getFavourite() {
         Cursor c = myDataBase.rawQuery("select distinct  en_word, en_definition from history where favorite = 1", null);
         return c;
+    }
+
+    public void changeFavourite(String word,int favourite) {
+        myDataBase.execSQL("update history set favourite = '" + favourite + "' where en_word = '" + word + "'");
+
     }
 
 

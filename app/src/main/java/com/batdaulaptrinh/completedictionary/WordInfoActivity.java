@@ -101,7 +101,7 @@ public class WordInfoActivity extends AppCompatActivity {
             thumbnail.setImageBitmap(decodedByte);
 
 
-            myDbHelper.insertHistory(enWord,enDefinition);
+            myDbHelper.insertHistory(enWord,enDefinition,0);
 
         }
     }
