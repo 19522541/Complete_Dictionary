@@ -15,7 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-public class wordInfo extends AppCompatActivity {
+public class WordInfoActivity extends AppCompatActivity {
     String enWord;
     public String enDefinition;
     public String example;
@@ -59,7 +59,7 @@ public class wordInfo extends AppCompatActivity {
             openDatabase();
 
         } else {
-            com.batdaulaptrinh.completedictionary.LoadDatabaseAsync task = new com.batdaulaptrinh.completedictionary.LoadDatabaseAsync(wordInfo.this);
+            com.batdaulaptrinh.completedictionary.LoadDatabaseAsync task = new com.batdaulaptrinh.completedictionary.LoadDatabaseAsync(WordInfoActivity.this);
             task.execute();
         }
 

@@ -7,13 +7,13 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class cardGame extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity {
 
     ImageButton backBt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_game);
+        setContentView(R.layout.activity_setting);
         backBt = findViewById(R.id.backButton);
         Intent mainIt = new Intent(this,MainActivity.class);
         backBt.setOnClickListener(new View.OnClickListener() {

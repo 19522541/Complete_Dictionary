@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class history extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity {
     static DatabaseHelper myDbHelper;
     ImageButton backButton;
     ImageButton deleteButton;
@@ -53,7 +53,7 @@ public class history extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = history.this;
+                Context context = HistoryActivity.this;
                 AlertDialog.Builder alertDelete = new AlertDialog.Builder(context);
                 alertDelete.setTitle("Are you sure")
                         .setMessage("ALl of your data will be erased permanently")

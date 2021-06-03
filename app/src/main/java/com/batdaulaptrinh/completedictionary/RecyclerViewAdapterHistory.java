@@ -2,7 +2,6 @@ package com.batdaulaptrinh.completedictionary;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ public class RecyclerViewAdapterHistory extends RecyclerView.Adapter<RecyclerVie
                     int position = getAdapterPosition();
                     String enWord = histories.get(position).get_en_word();
 
-                    Intent intent = new Intent(context, wordInfo.class);
+                    Intent intent = new Intent(context, WordInfoActivity.class);
                     intent.putExtra("en_word",enWord);
                     context.startActivity(intent);
                 }

@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".wordInfo" />
-        <activity android:name=".setting" />
-        <activity android:name=".cardGame" />
-        <activity android:name=".rememberGame" />
-        <activity android:name=".history" />
+        <activity android:name=".WordInfoActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".CardGameActivity" />
+        <activity android:name=".RememberGameActivity" />
+        <activity android:name=".HistoryActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

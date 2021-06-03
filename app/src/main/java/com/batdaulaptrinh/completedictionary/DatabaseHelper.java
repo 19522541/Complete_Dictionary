@@ -129,13 +129,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insertHistory(String word) {
-        myDataBase.execSQL("INSERT INTO history(en_word) VALUES(UPPER('" + word + "'))");
-
-    }
 
     public Cursor getHistory() {
         Cursor c = myDataBase.rawQuery("select distinct  en_word, en_definition from history", null);
+        return c;
+    }
+    public Cursor getFavourite() {
+        Cursor c = myDataBase.rawQuery("select distinct  en_word, en_definition from history where favorite = 1", null);
         return c;
     }
 

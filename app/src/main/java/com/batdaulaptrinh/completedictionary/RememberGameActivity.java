@@ -7,7 +7,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class rememberGame extends AppCompatActivity {
+public class RememberGameActivity extends AppCompatActivity {
 
     ImageButton backBt;
 

@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
         rememberGame = findViewById(R.id.rememberGameBt);
         cardGame = findViewById(R.id.cardGameBt);
         history = findViewById(R.id.historyBt);
-        Intent historyIt = new Intent(this, com.batdaulaptrinh.completedictionary.history.class);
-        Intent settingIt = new Intent(this, com.batdaulaptrinh.completedictionary.setting.class);
-        Intent rememberIt = new Intent(this, com.batdaulaptrinh.completedictionary.rememberGame.class);
-        Intent cardGameIt = new Intent(this, com.batdaulaptrinh.completedictionary.cardGame.class);
+        Intent historyIt = new Intent(this, HistoryActivity.class);
+        Intent settingIt = new Intent(this, SettingActivity.class);
+        Intent rememberIt = new Intent(this, RememberGameActivity.class);
+        Intent cardGameIt = new Intent(this, CardGameActivity.class);
         setting.setOnClickListener(v -> {
 //            setContentView(R.layout.activity_setting);
             startActivity(settingIt);
@@ -152,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 search.clearFocus();
                 search.setFocusable(false);
 
-                Intent intent = new Intent(MainActivity.this, com.batdaulaptrinh.completedictionary.wordInfo.class);
+                Intent intent = new Intent(MainActivity.this, WordInfoActivity.class);
                 intent.putExtra("en_word",clicked_word);
                 startActivity(intent);
 
@@ -186,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                         search.clearFocus();
                         search.setFocusable(false);
 
-                        Intent intent = new Intent(MainActivity.this, com.batdaulaptrinh.completedictionary.wordInfo.class);
+                        Intent intent = new Intent(MainActivity.this, WordInfoActivity.class);
                         intent.putExtra("en_word",query);
                         startActivity(intent);
 
