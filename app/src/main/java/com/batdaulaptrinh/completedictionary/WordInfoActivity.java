@@ -8,12 +8,23 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 
 public class WordInfoActivity extends AppCompatActivity {
     String enWord;
@@ -66,6 +77,7 @@ public class WordInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         enWord = intent.getStringExtra("en_word");
+//        fetchData(enWord);
         Cursor c = myDbHelper.getMeaning(enWord);
         DatabaseUtils.dumpCursorToString(c);
         if (c.moveToFirst()) {
@@ -118,5 +130,51 @@ public class WordInfoActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+    public void fetchData (String query){
+        RequestQueue queue = Volley.newRequestQueue(WordInfoActivity.this);
+
+        String url="https://api.dictionaryapi.dev/api/v2/entries/en_US/"+query;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response.trim().charAt(0) == '[') {
+                            parseJSON(response);
+                        } else if(response.trim().charAt(0) == '{') {
+                            Log.e("error" , "word not found");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("error" , "server error");
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    private void parseJSON(String data) {
+
+        try {
+            JSONArray jsonMainNode = new JSONArray(data);
+            String word = jsonMainNode.getJSONObject(0).getString("word");
+            String IPAAmerican = jsonMainNode.getJSONObject(0).getJSONArray("phonetics").getJSONObject(0).getString("text");
+            String audioURLAmerican = jsonMainNode.getJSONObject(0).getJSONArray("phonetics").getJSONObject(0).getString("audio");
+            String partOfSpeech = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getString("partOfSpeech");
+            String definition = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("definition");
+            String example = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("example");
+            String synonyms = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getJSONArray("synonyms").getString(0);
+            textDefinition.setText(definition);
+            textIPAAmerica.setText(IPAAmerican);
+            textIPABritish.setText(IPAAmerican);
+            textExample.setText(example);
+            textSynonyms.setText(synonyms);
+        } catch (Exception e) {
+            Log.i("App", "Error parsing data" + e.getMessage());
+
+        }
     }
 }
