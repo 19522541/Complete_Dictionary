@@ -53,7 +53,7 @@ public class CardGameActivity extends AppCompatActivity {
             com.batdaulaptrinh.completedictionary.LoadDatabaseAsync task = new com.batdaulaptrinh.completedictionary.LoadDatabaseAsync(CardGameActivity.this);
             task.execute();
         }
-      Cursor c = myDbHelper.getMeaning("H");
+      Cursor c = myDbHelper.getHistory();
       //  DatabaseUtils.dumpCursorToString(c);
      //   DatabaseUtils.dumpCursorToString(c);
 
