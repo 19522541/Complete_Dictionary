@@ -1,8 +1,11 @@
 package com.batdaulaptrinh.completedictionary;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -150,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 search.setFocusable(false);
 
                 Intent intent = new Intent(MainActivity.this, WordInfoActivity.class);
-                intent.putExtra("en_word",clicked_word);
+                intent.putExtra("en_word", clicked_word);
                 startActivity(intent);
 
                 return true;
@@ -176,15 +179,14 @@ public class MainActivity extends AppCompatActivity {
                 if (m.matches()) {
                     Cursor c = myDbHelper.getMeaning(text);
 
-                    if (c.getCount() == 0) {
+                    if (c.getCount() == 0 && !isNetworkAvailable()) {
                         showAlertDialog();
                     } else {
-                        //search.setQuery("",false);
                         search.clearFocus();
                         search.setFocusable(false);
 
                         Intent intent = new Intent(MainActivity.this, WordInfoActivity.class);
-                        intent.putExtra("en_word",query);
+                        intent.putExtra("en_word", query);
                         startActivity(intent);
 
                     }
@@ -222,6 +224,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     // HuyThanh0x
     SearchView search;
 
@@ -247,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.MyDialogTheme);
         builder.setTitle("Word Not Found");
-        builder.setMessage("Please search again");
+        builder.setMessage("Please try again or open you wifi");
 
         String positiveText = getString(android.R.string.ok);
         builder.setPositiveButton(positiveText, (dialog, which) -> {
