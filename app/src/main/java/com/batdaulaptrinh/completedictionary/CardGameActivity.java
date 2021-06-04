@@ -53,9 +53,9 @@ public class CardGameActivity extends AppCompatActivity {
             com.batdaulaptrinh.completedictionary.LoadDatabaseAsync task = new com.batdaulaptrinh.completedictionary.LoadDatabaseAsync(CardGameActivity.this);
             task.execute();
         }
-      Cursor c = myDbHelper.getHistory();
+      Cursor c = myDbHelper.getFavourite();
       //  DatabaseUtils.dumpCursorToString(c);
-     //   DatabaseUtils.dumpCursorToString(c);
+      DatabaseUtils.dumpCursorToString(c);
 
         showButton.setOnClickListener(new View.OnClickListener() {
             @Override
