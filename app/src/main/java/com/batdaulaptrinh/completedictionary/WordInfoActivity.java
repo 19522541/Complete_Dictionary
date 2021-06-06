@@ -78,44 +78,44 @@ public class WordInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         enWord = intent.getStringExtra("en_word");
         fetchData(enWord);
-//        Cursor c = myDbHelper.getMeaning(enWord);
-//        DatabaseUtils.dumpCursorToString(c);
-//        if (c.moveToFirst()) {
-//            enDefinition = c.getString(c.getColumnIndex("en_definition"));
-//            synonyms = c.getString(c.getColumnIndex("synonyms"));
-//            antonyms = c.getString(c.getColumnIndex("antonyms"));
-//            ipa_us= c.getString(c.getColumnIndex("ipa_us"));
-//            ipa_uk= c.getString(c.getColumnIndex("ipa_uk"));
-//            type = c.getString(c.getColumnIndex("type"));
-//            example = c.getString(c.getColumnIndex("example"));
-//            synonyms = c.getString(c.getColumnIndex("synonyms"));
-//            if(synonyms!=null){
-//                String[] parts = synonyms.split(",");
-//                synonyms = parts[0];
-//            }
-//
-//            textWord.setText(c.getString(c.getColumnIndex("en_word")));
-//            textDefinition.setText(enDefinition);
-//            textIPAAmerica.setText(ipa_us);
-//            textIPABritish.setText(ipa_uk);
-//            textExample.setText(example);
-//            textSynonyms.setText(synonyms);
-//
-//            String bitmap = c.getString(c.getColumnIndex("thumbnail"));
-//            System.out.println("code here" +bitmap);
-////            byte[] blob = c.getBlob(6);
-////            System.out.println("bitmap" + Arrays.toString(blob));
-////            ByteArrayInputStream imageStream = new ByteArrayInputStream(blob);
-////            System.out.println("bitmap" + imageStream);
-////            Bitmap theImage = BitmapFactory.decodeStream(imageStream);an
-//            byte[] decodedString = Base64.decode(bitmap, Base64.DEFAULT);
-//            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//            thumbnail.setImageBitmap(decodedByte);
-//
-//
-//            myDbHelper.insertHistory(enWord,enDefinition,0);
-//
-//        }
+        Cursor c = myDbHelper.getMeaning(enWord);
+        DatabaseUtils.dumpCursorToString(c);
+        if (c.moveToFirst()) {
+            enDefinition = c.getString(c.getColumnIndex("en_definition"));
+            synonyms = c.getString(c.getColumnIndex("synonyms"));
+            antonyms = c.getString(c.getColumnIndex("antonyms"));
+            ipa_us= c.getString(c.getColumnIndex("ipa_us"));
+            ipa_uk= c.getString(c.getColumnIndex("ipa_uk"));
+            type = c.getString(c.getColumnIndex("type"));
+            example = c.getString(c.getColumnIndex("example"));
+            synonyms = c.getString(c.getColumnIndex("synonyms"));
+            if(synonyms!=null){
+                String[] parts = synonyms.split(",");
+                synonyms = parts[0];
+            }
+
+            textWord.setText(c.getString(c.getColumnIndex("en_word")));
+            textDefinition.setText(enDefinition);
+            textIPAAmerica.setText(ipa_us);
+            textIPABritish.setText(ipa_uk);
+            textExample.setText(example);
+            textSynonyms.setText(synonyms);
+
+            String bitmap = c.getString(c.getColumnIndex("thumbnail"));
+            System.out.println("code here" +bitmap);
+//            byte[] blob = c.getBlob(6);
+//            System.out.println("bitmap" + Arrays.toString(blob));
+//            ByteArrayInputStream imageStream = new ByteArrayInputStream(blob);
+//            System.out.println("bitmap" + imageStream);
+//            Bitmap theImage = BitmapFactory.decodeStream(imageStream);an
+            byte[] decodedString = Base64.decode(bitmap, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            thumbnail.setImageBitmap(decodedByte);
+
+
+            myDbHelper.insertHistory(enWord,enDefinition,0);
+
+        }
     }
     protected static void openDatabase()
     {
