@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, WordInfoActivity.class);
                 intent.putExtra("en_word", clicked_word);
+                intent.putExtra("is_online","false");
                 startActivity(intent);
 
                 return true;

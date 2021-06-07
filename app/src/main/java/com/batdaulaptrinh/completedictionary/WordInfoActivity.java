@@ -82,6 +82,7 @@ public class WordInfoActivity extends AppCompatActivity {
         String isTrue = "true";
 //
 //        fetchData(enWord);
+        Log.e("isOnline",isOnline);
         if (isOnline.equals(isTrue)){
             fetchData(enWord);
         }
