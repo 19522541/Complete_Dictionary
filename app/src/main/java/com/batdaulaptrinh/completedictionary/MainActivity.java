@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -18,6 +19,13 @@ import androidx.cardview.widget.CardView;
 import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,16 +187,36 @@ public class MainActivity extends AppCompatActivity {
                 if (m.matches()) {
                     Cursor c = myDbHelper.getMeaning(text);
 
-                    if (c.getCount() == 0 && !isNetworkAvailable()) {
-                        showAlertDialog();
-                    } else {
+//                    if (c.getCount() == 0 && !isNetworkAvailable()) {
+//                        showAlertDialog();
+//                    } else {
+//                        search.clearFocus();
+//                        search.setFocusable(false);
+//
+//                        Intent intent = new Intent(MainActivity.this, WordInfoActivity.class);
+//                        intent.putExtra("en_word", query);
+//                        startActivity(intent);
+//
+//                    }
+                    if (c.getCount() != 0 ){
                         search.clearFocus();
                         search.setFocusable(false);
 
                         Intent intent = new Intent(MainActivity.this, WordInfoActivity.class);
                         intent.putExtra("en_word", query);
+                        intent.putExtra("is_online","false");
                         startActivity(intent);
+                    }
+                    else {
+                        if (!isNetworkAvailable()){
+                            showAlertDialog();
+                        }
+                        else {
+                            search.clearFocus();
+                            search.setFocusable(false);
+                            fetchData(query);
 
+                        }
                     }
 
                 } else {
@@ -285,6 +313,32 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     //HuyThanh1x
+    public void fetchData (String query){
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
 
+        String url="https://api.dictionaryapi.dev/api/v2/entries/en_US/"+query;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response.trim().charAt(0) == '[') {
+                            Intent intent = new Intent(MainActivity.this, WordInfoActivity.class);
+                            intent.putExtra("en_word", query);
+                            intent.putExtra("is_online","true");
+                            startActivity(intent);
+                        } else if(response.trim().charAt(0) == '{') {
+                            showAlertDialog();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                showAlertDialog();;
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
 
 }

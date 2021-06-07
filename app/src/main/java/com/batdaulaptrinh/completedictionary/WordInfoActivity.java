@@ -28,6 +28,7 @@ import org.json.JSONArray;
 
 public class WordInfoActivity extends AppCompatActivity {
     String enWord;
+    String isOnline;
     public String enDefinition;
     public String example;
     public String synonyms;
@@ -77,45 +78,55 @@ public class WordInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         enWord = intent.getStringExtra("en_word");
-        fetchData(enWord);
-//        Cursor c = myDbHelper.getMeaning(enWord);
-//        DatabaseUtils.dumpCursorToString(c);
-//        if (c.moveToFirst()) {
-//            enDefinition = c.getString(c.getColumnIndex("en_definition"));
-//            synonyms = c.getString(c.getColumnIndex("synonyms"));
-//            antonyms = c.getString(c.getColumnIndex("antonyms"));
-//            ipa_us= c.getString(c.getColumnIndex("ipa_us"));
-//            ipa_uk= c.getString(c.getColumnIndex("ipa_uk"));
-//            type = c.getString(c.getColumnIndex("type"));
-//            example = c.getString(c.getColumnIndex("example"));
-//            synonyms = c.getString(c.getColumnIndex("synonyms"));
-//            if(synonyms!=null){
-//                String[] parts = synonyms.split(",");
-//                synonyms = parts[0];
-//            }
+        isOnline = intent.getStringExtra("is_online");
+        String isTrue = "true";
 //
-//            textWord.setText(c.getString(c.getColumnIndex("en_word")));
-//            textDefinition.setText(enDefinition);
-//            textIPAAmerica.setText(ipa_us);
-//            textIPABritish.setText(ipa_uk);
-//            textExample.setText(example);
-//            textSynonyms.setText(synonyms);
-//
-//            String bitmap = c.getString(c.getColumnIndex("thumbnail"));
-//            System.out.println("code here" +bitmap);
-////            byte[] blob = c.getBlob(6);
-////            System.out.println("bitmap" + Arrays.toString(blob));
-////            ByteArrayInputStream imageStream = new ByteArrayInputStream(blob);
-////            System.out.println("bitmap" + imageStream);
-////            Bitmap theImage = BitmapFactory.decodeStream(imageStream);an
-//            byte[] decodedString = Base64.decode(bitmap, Base64.DEFAULT);
-//            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//            thumbnail.setImageBitmap(decodedByte);
-//
-//
-//            myDbHelper.insertHistory(enWord,enDefinition,0);
-//
-//        }
+//        fetchData(enWord);
+        if (isOnline.equals(isTrue)){
+            fetchData(enWord);
+        }
+        else {
+            Log.e("isOnline",isOnline);
+        Cursor c = myDbHelper.getMeaning(enWord);
+        DatabaseUtils.dumpCursorToString(c);
+        if (c.moveToFirst()) {
+            enDefinition = c.getString(c.getColumnIndex("en_definition"));
+            synonyms = c.getString(c.getColumnIndex("synonyms"));
+            antonyms = c.getString(c.getColumnIndex("antonyms"));
+            ipa_us= c.getString(c.getColumnIndex("ipa_us"));
+            ipa_uk= c.getString(c.getColumnIndex("ipa_uk"));
+            type = c.getString(c.getColumnIndex("type"));
+            example = c.getString(c.getColumnIndex("example"));
+            synonyms = c.getString(c.getColumnIndex("synonyms"));
+            if(synonyms!=null){
+                String[] parts = synonyms.split(",");
+                synonyms = parts[0];
+            }
+
+            textWord.setText(c.getString(c.getColumnIndex("en_word")));
+            textDefinition.setText(enDefinition);
+            textIPAAmerica.setText(ipa_us);
+            textIPABritish.setText(ipa_uk);
+            textExample.setText(example);
+            textSynonyms.setText(synonyms);
+
+            String bitmap = c.getString(c.getColumnIndex("thumbnail"));
+            System.out.println("code here" +bitmap);
+//            byte[] blob = c.getBlob(6);
+//            System.out.println("bitmap" + Arrays.toString(blob));
+//            ByteArrayInputStream imageStream = new ByteArrayInputStream(blob);
+//            System.out.println("bitmap" + imageStream);
+//            Bitmap theImage = BitmapFactory.decodeStream(imageStream);an
+            byte[] decodedString = Base64.decode(bitmap, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            thumbnail.setImageBitmap(decodedByte);
+
+
+            myDbHelper.insertHistory(enWord,enDefinition,0);
+
+        }
+        }
+
     }
     protected static void openDatabase()
     {
@@ -140,6 +151,7 @@ public class WordInfoActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.e("================" , "word not found");
                         if(response.trim().charAt(0) == '[') {
                             parseJSON(response);
                         } else if(response.trim().charAt(0) == '{') {
@@ -164,16 +176,17 @@ public class WordInfoActivity extends AppCompatActivity {
             String IPAAmerican = jsonMainNode.getJSONObject(0).getJSONArray("phonetics").getJSONObject(0).getString("text");
             String audioURLAmerican = jsonMainNode.getJSONObject(0).getJSONArray("phonetics").getJSONObject(0).getString("audio");
             String partOfSpeech = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getString("partOfSpeech");
-            String definition = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("definition");
+            String enDefinition = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("definition");
             String example = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("example");
             String synonyms = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getJSONArray("synonyms").getString(0);
 
             textWord.setText(word);
-            textDefinition.setText(definition);
+            textDefinition.setText(enDefinition);
             textIPAAmerica.setText(IPAAmerican);
             textIPABritish.setText(IPAAmerican);
             textExample.setText(example);
             textSynonyms.setText(synonyms);
+            myDbHelper.insertHistory(enWord,enDefinition,0);
         } catch (Exception e) {
             Log.i("App", "Error parsing data" + e.getMessage());
 
