@@ -30,13 +30,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/wordTextView"
-            android:layout_width="359dp"
-            android:layout_height="239dp"
+            android:layout_width="361dp"
+            android:layout_height="247dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.162">
+            app:layout_constraintVertical_bias="0.161">
 
             <ImageButton
                 android:id="@+id/button_speaker_america2"
@@ -44,8 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:layout_marginStart="88dp"
-                android:layout_marginTop="112dp"
+                android:layout_marginStart="92dp"
+                android:layout_marginTop="108dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/speaker" />
@@ -56,13 +56,13 @@
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:layout_marginStart="88dp"
+                android:layout_marginStart="92dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_speaker_america2"
                 app:srcCompat="@drawable/speaker" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/word"
                 android:layout_width="208dp"
                 android:layout_height="67dp"
                 android:layout_marginTop="12dp"
@@ -79,12 +79,13 @@
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:layout_marginTop="36dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="32dp"
                 android:padding="10dp"
-                android:text="/ɪɡˈzæmpl/"
+                android:text="UNKNOW"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/button_speaker_america2"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toBottomOf="@+id/word" />
 
             <TextView
                 android:id="@+id/IPA_british2"
@@ -92,18 +93,20 @@
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="1"
+                android:layout_marginStart="4dp"
                 android:padding="10dp"
-                android:text="/ɪɡˈzɑːmpl/"
+                android:text="UNKNOW"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/button_speaker_british2"
                 app:layout_constraintTop_toBottomOf="@+id/IPA_america2" />
 
             <Button
                 android:id="@+id/showButton"
-                android:layout_width="90dp"
+                android:layout_width="98dp"
                 android:layout_height="34dp"
-                android:layout_marginStart="132dp"
-                android:text="Button"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/downbutton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/IPA_british2" />
 
@@ -114,26 +117,26 @@
                 android:layout_marginTop="40dp"
                 android:text="noun"
                 android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintStart_toEndOf="@+id/word"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/leftbutton"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_marginStart="88dp"
             android:layout_marginTop="248dp"
-            android:text="Button"
+            android:background="@drawable/lefticon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/describeBox" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/rightbutton"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_marginTop="248dp"
-            android:text="Button"
+            android:background="@drawable/righticon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.707"
             app:layout_constraintStart_toStartOf="parent"
@@ -191,7 +194,7 @@
                 android:layout_width="348dp"
                 android:layout_height="50dp"
                 android:layout_weight="2"
-                android:text="Just to give you an example of his generosity—he gave me his old car and wouldn't take any money for it."
+                android:text="UNKNOW"
                 android:textSize="16sp" />
         </LinearLayout>
 
