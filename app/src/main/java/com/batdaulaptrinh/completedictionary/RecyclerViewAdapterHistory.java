@@ -42,6 +42,7 @@ public class RecyclerViewAdapterHistory extends RecyclerView.Adapter<RecyclerVie
 
                     Intent intent = new Intent(context, WordInfoActivity.class);
                     intent.putExtra("en_word", enWord);
+                    intent.putExtra("is_online","true");
                     context.startActivity(intent);
                 }
             });

@@ -21,7 +21,7 @@ public class RememberGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setContentView(R.layout.activity_main);
-                startActivity(mainIt);
+                finish();
             }
         });
     }

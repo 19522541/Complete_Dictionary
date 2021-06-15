@@ -149,7 +149,7 @@ public class CardGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setContentView(R.layout.activity_main);
-                startActivity(mainIt);
+                finish();
             }
         });
         leftButton.setOnClickListener(new View.OnClickListener() {
