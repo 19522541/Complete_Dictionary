@@ -12,6 +12,9 @@ import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.speech.tts.TextToSpeech;
+import java.util.Locale;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -28,6 +31,7 @@ import org.json.JSONArray;
 
 public class WordInfoActivity extends AppCompatActivity {
     String enWord;
+    String isOnline;
     public String enDefinition;
     public String example;
     public String synonyms;
@@ -36,6 +40,7 @@ public class WordInfoActivity extends AppCompatActivity {
     String ipa_uk;
     TextView textWord;
     String type;
+    Boolean isLangUS;
     TextView partOfSpeech;
     TextView textIPABritish;
     TextView textIPAAmerica;
@@ -45,10 +50,12 @@ public class WordInfoActivity extends AppCompatActivity {
     ImageView thumbnail;
     TextView textSynonyms;
     TextView textAntonyms;
+    TextToSpeech tts;
     static com.batdaulaptrinh.completedictionary.DatabaseHelper myDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        isLangUS =true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_info);
 
@@ -77,7 +84,37 @@ public class WordInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         enWord = intent.getStringExtra("en_word");
-        fetchData(enWord);
+        isOnline = intent.getStringExtra("is_online");
+        String isTrue = "true";
+        tts=new TextToSpeech(WordInfoActivity.this, status -> {
+            // TODO Auto-generated method stub
+            if(status == TextToSpeech.SUCCESS){
+                int result=tts.setLanguage(Locale.US);
+                if(result==TextToSpeech.LANG_MISSING_DATA ||
+                        result==TextToSpeech.LANG_NOT_SUPPORTED){
+                    Log.e("error", "This Language is not supported");
+                }
+                else{
+                    ConvertTextToSpeech();
+                }
+            }
+            else
+                Log.e("error", "Initilization Failed!");
+        });
+        btnSpeakBritish.setOnClickListener(v -> {
+            isLangUS = false;
+            ConvertTextToSpeech();
+        });
+        btnSpeakAmerica.setOnClickListener(v -> {
+            isLangUS= true;
+            ConvertTextToSpeech();
+        });
+
+
+        if (isOnline.equals(isTrue)){
+            fetchData(enWord);
+        }
+        else {
         Cursor c = myDbHelper.getMeaning(enWord);
         DatabaseUtils.dumpCursorToString(c);
         if (c.moveToFirst()) {
@@ -112,9 +149,33 @@ public class WordInfoActivity extends AppCompatActivity {
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             thumbnail.setImageBitmap(decodedByte);
 
-
             myDbHelper.insertHistory(enWord,enDefinition,0);
+        }
+        }
 
+    }
+    @Override
+    protected void onPause() {
+        // TODO Auto-generated method stub
+
+        if(tts != null){
+
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onPause();
+    }
+
+    private void ConvertTextToSpeech() {
+        // TODO Auto-generated method stub
+        if(enWord==null||"".equals(enWord))
+        {
+            String text = "Content not available";
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null,"1");
+        }else {
+            if (isLangUS) {
+            tts.setLanguage(Locale.US) ;}else {tts.setLanguage(Locale.UK);}
+            tts.speak(enWord, TextToSpeech.QUEUE_FLUSH, null, "2");
         }
     }
     protected static void openDatabase()
@@ -143,7 +204,6 @@ public class WordInfoActivity extends AppCompatActivity {
                         if(response.trim().charAt(0) == '[') {
                             parseJSON(response);
                         } else if(response.trim().charAt(0) == '{') {
-                            Log.e("error" , "word not found");
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -164,16 +224,17 @@ public class WordInfoActivity extends AppCompatActivity {
             String IPAAmerican = jsonMainNode.getJSONObject(0).getJSONArray("phonetics").getJSONObject(0).getString("text");
             String audioURLAmerican = jsonMainNode.getJSONObject(0).getJSONArray("phonetics").getJSONObject(0).getString("audio");
             String partOfSpeech = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getString("partOfSpeech");
-            String definition = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("definition");
+            String enDefinition = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("definition");
             String example = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("example");
             String synonyms = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getJSONArray("synonyms").getString(0);
 
             textWord.setText(word);
-            textDefinition.setText(definition);
+            textDefinition.setText(enDefinition);
             textIPAAmerica.setText(IPAAmerican);
             textIPABritish.setText(IPAAmerican);
             textExample.setText(example);
             textSynonyms.setText(synonyms);
+            myDbHelper.insertHistory(enWord,enDefinition,0);
         } catch (Exception e) {
             Log.i("App", "Error parsing data" + e.getMessage());
 

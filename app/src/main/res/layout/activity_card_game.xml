@@ -136,7 +136,7 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_marginTop="248dp"
-            android:background="@drawable/righticon_"
+            android:background="@drawable/righticon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.707"
             app:layout_constraintStart_toStartOf="parent"
