@@ -30,6 +30,7 @@ public class CardGameActivity extends AppCompatActivity {
     TextView ipa_usView;
     TextView ipa_ukView;
     Button showButton;
+    String  t;
     LinearLayout descirbeLayout;
     TextView textExample;
     TextView typeTextView;
@@ -97,6 +98,7 @@ public class CardGameActivity extends AppCompatActivity {
             typeTextView.setText("UNKNOW");
             ipa_usView.setText( "UNKNOW");
             ipa_ukView.setText( "UNKNOW");
+            t="UNKNOW";
         }
         countCard.setText(Integer.toString(stt)+" / " +Integer.toString(listWord.size()));
     }
