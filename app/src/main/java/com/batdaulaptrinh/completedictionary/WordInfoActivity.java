@@ -54,6 +54,7 @@ public class WordInfoActivity extends AppCompatActivity {
     TextView textSynonyms;
     TextView textAntonyms;
     TextToSpeech tts;
+    SettingActivity setting;
     static com.batdaulaptrinh.completedictionary.DatabaseHelper myDbHelper;
 
     @Override
@@ -173,7 +174,7 @@ public class WordInfoActivity extends AppCompatActivity {
 
     private void ConvertTextToSpeech() {
         // TODO Auto-generated method stub
-        tts.setSpeechRate(0.5f);
+        tts.setSpeechRate(setting.speed);
         if(enWord==null||"".equals(enWord))
         {
             String text = "Content not available";
