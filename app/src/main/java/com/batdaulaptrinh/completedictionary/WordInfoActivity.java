@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.speech.tts.TextToSpeech;
+
+import java.lang.reflect.Array;
 import java.util.Locale;
 import android.view.View;
 
@@ -32,6 +34,7 @@ import org.json.JSONArray;
 public class WordInfoActivity extends AppCompatActivity {
     String enWord;
     String isOnline;
+    String word;
     public String enDefinition;
     public String example;
     public String synonyms;
@@ -88,6 +91,7 @@ public class WordInfoActivity extends AppCompatActivity {
         String isTrue = "true";
         tts=new TextToSpeech(WordInfoActivity.this, status -> {
             // TODO Auto-generated method stub
+
             if(status == TextToSpeech.SUCCESS){
                 int result=tts.setLanguage(Locale.US);
                 if(result==TextToSpeech.LANG_MISSING_DATA ||
@@ -95,7 +99,7 @@ public class WordInfoActivity extends AppCompatActivity {
                     Log.e("error", "This Language is not supported");
                 }
                 else{
-                    ConvertTextToSpeech();
+//                    ConvertTextToSpeech();
                 }
             }
             else
@@ -112,7 +116,8 @@ public class WordInfoActivity extends AppCompatActivity {
 
 
         if (isOnline.equals(isTrue)){
-            fetchData(enWord);
+//            fetchData(enWord);
+            parseJSON(enWord);
         }
         else {
         Cursor c = myDbHelper.getMeaning(enWord);
@@ -168,14 +173,16 @@ public class WordInfoActivity extends AppCompatActivity {
 
     private void ConvertTextToSpeech() {
         // TODO Auto-generated method stub
+        tts.setSpeechRate(0.5f);
         if(enWord==null||"".equals(enWord))
         {
             String text = "Content not available";
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null,"1");
         }else {
+
             if (isLangUS) {
             tts.setLanguage(Locale.US) ;}else {tts.setLanguage(Locale.UK);}
-            tts.speak(enWord, TextToSpeech.QUEUE_FLUSH, null, "2");
+            tts.speak(word, TextToSpeech.QUEUE_FLUSH, null, "2");
         }
     }
     protected static void openDatabase()
@@ -192,49 +199,51 @@ public class WordInfoActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
-    public void fetchData (String query){
-        RequestQueue queue = Volley.newRequestQueue(WordInfoActivity.this);
-
-        String url="https://api.dictionaryapi.dev/api/v2/entries/en_US/"+query;
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        if(response.trim().charAt(0) == '[') {
-                            parseJSON(response);
-                        } else if(response.trim().charAt(0) == '{') {
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("error" , "server error");
-            }
-        });
-// Add the request to the RequestQueue.
-        queue.add(stringRequest);
-    }
 
     private void parseJSON(String data) {
-        System.out.println("data are " + data);
         try {
+            String IPABritish;
+            String synonyms;
+            String enDefinition;
+            String example;
+            String IPAAmerican;
+            String Empty = "";
             JSONArray jsonMainNode = new JSONArray(data);
-            String word = jsonMainNode.getJSONObject(0).getString("word");
-            String IPAAmerican = jsonMainNode.getJSONObject(0).getJSONArray("phonetics").getJSONObject(0).getString("text");
-            String audioURLAmerican = jsonMainNode.getJSONObject(0).getJSONArray("phonetics").getJSONObject(0).getString("audio");
-            String partOfSpeech = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getString("partOfSpeech");
-            String enDefinition = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("definition");
-            String example = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("example");
-            String synonyms = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getJSONArray("synonyms").getString(0);
-
+            word = jsonMainNode.getJSONObject(0).getString("word");
+            IPAAmerican = jsonMainNode.getJSONObject(0).getJSONArray("phonetics").getJSONObject(0).getString("text");
+            if (jsonMainNode.getJSONObject(0).getJSONArray("phonetics").length()>1){
+                IPABritish = jsonMainNode.getJSONObject(0).getJSONArray("phonetics").getJSONObject(1).getString("text");
+            }
+            else {
+                IPABritish = jsonMainNode.getJSONObject(0).getJSONArray("phonetics").getJSONObject(0).getString("text");
+            }
+            enDefinition = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("definition");
+            if (jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).has("example")){
+                example = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getString("example");
+            }
+            else {
+                example = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(1).getJSONArray("definitions").getJSONObject(0).getString("example");
+            }
+            JSONArray arrMeaning = jsonMainNode.getJSONObject(0).getJSONArray("meanings");
+            if (arrMeaning.getJSONObject(0).getJSONArray("definitions").getJSONObject(0).has("synonyms")) {
+                synonyms = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(0).getJSONArray("definitions").getJSONObject(0).getJSONArray("synonyms").getString(0);
+            }
+            else
+            {
+                if (arrMeaning.getJSONObject(1).getJSONArray("definitions").getJSONObject(0).has("synonyms")) {
+                    synonyms = jsonMainNode.getJSONObject(0).getJSONArray("meanings").getJSONObject(1).getJSONArray("definitions").getJSONObject(0).getJSONArray("synonyms").getString(0);
+                }
+                else {
+                    synonyms = Empty;
+                }
+            }
             textWord.setText(word);
             textDefinition.setText(enDefinition);
             textIPAAmerica.setText(IPAAmerican);
-            textIPABritish.setText(IPAAmerican);
+            textIPABritish.setText(IPABritish);
             textExample.setText(example);
             textSynonyms.setText(synonyms);
-            myDbHelper.insertHistory(enWord,enDefinition,0);
+            myDbHelper.insertHistory(word,enDefinition,0);
         } catch (Exception e) {
             Log.i("App", "Error parsing data" + e.getMessage());
 

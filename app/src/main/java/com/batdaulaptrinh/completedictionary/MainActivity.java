@@ -34,7 +34,6 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
-
     ArrayAdapter<String> arrayAdapter;
     CardView setting;
     CardView rememberGame;
@@ -325,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         if(response.trim().charAt(0) == '[') {
                             Intent intent = new Intent(MainActivity.this, WordInfoActivity.class);
-                            intent.putExtra("en_word", query);
+                            intent.putExtra("en_word", response);
                             intent.putExtra("is_online","true");
                             startActivity(intent);
                         } else if(response.trim().charAt(0) == '{') {
