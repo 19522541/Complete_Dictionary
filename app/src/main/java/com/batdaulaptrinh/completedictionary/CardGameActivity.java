@@ -1,5 +1,6 @@
 package com.batdaulaptrinh.completedictionary;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,7 +41,8 @@ public class CardGameActivity extends AppCompatActivity {
     TextView ipa_usView;
     TextView ipa_ukView;
     Button showButton;
-    String  t;
+    String t;
+    SettingActivity setting;
     LinearLayout descirbeLayout;
     ConstraintLayout cardGameLayout;
     //TextView textExample;
@@ -49,57 +51,78 @@ public class CardGameActivity extends AppCompatActivity {
     Button leftButton;
     Button rightButton;
     ImageView thumbnail;
-    public  String  example;
+    public String example;
     public String type;
-    public  Boolean show=false;
-    public int  stt=1;
+    public Boolean show = false;
+    public int stt = 1;
     boolean isLangUS;
-    public String currentWord="";
+    public String currentWord = "";
     TextToSpeech tts;
-    ImageButton btnSpeakBritish ;
-    ImageButton btnSpeakAmerica ;
-    GestureDetector     gesture;
-    public List<String> listWord= new ArrayList<String>();
-    public List<String> listEnDifinition= new ArrayList<String>();
+    ImageButton btnSpeakBritish;
+    ImageButton btnSpeakAmerica;
+    GestureDetector gesture;
+    public List<String> listWord = new ArrayList<String>();
+    public List<String> listEnDifinition = new ArrayList<String>();
     static com.batdaulaptrinh.completedictionary.DatabaseHelper myDbHelper;
-    void afterRightClick(){
-        if(listWord.size()==1) return;
+
+    void afterRightClick() {
+        if (listWord.size() == 1) return;
         stt++;
-        if(stt>listWord.size()) stt=1;
-        getMeaningOfCurrentWord(listWord.get(stt-1));
-        show=false;
+        if (stt > listWord.size()) stt = 1;
+        getMeaningOfCurrentWord(listWord.get(stt - 1));
+        show = false;
         expandForWord();
 
     }
-    void afterLeftClick(){
-        if(listWord.size()==1) return;
+
+    void afterLeftClick() {
+        if (listWord.size() == 1) return;
         stt--;
-        if(stt<=0) stt=listWord.size();
-        getMeaningOfCurrentWord(listWord.get(stt-1));
-        show=false;
+        if (stt <= 0) stt = listWord.size();
+        getMeaningOfCurrentWord(listWord.get(stt - 1));
+        show = false;
         expandForWord();
     }
+
     private void ConvertTextToSpeech() {
-        // TODO Auto-generated method stub
-        if(currentWord==null||"".equals(currentWord))
-        {
-            String text = "Content not available";
-            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null,"1");
-        }else {
+        tts.setSpeechRate(setting.speed);
+
+
             if (isLangUS) {
                 tts.setLanguage(Locale.US) ;}else {tts.setLanguage(Locale.UK);}
             tts.speak(currentWord, TextToSpeech.QUEUE_FLUSH, null, "2");
-        }
+
+//        // TODO Auto-generated method stub
+//        if (currentWord == null || "".equals(currentWord)) {
+//            String text = "Content not available";
+//            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "1");
+//        } else {
+//            if (isLangUS) {
+//                tts.setLanguage(Locale.US);
+//            } else {
+//                tts.setLanguage(Locale.UK);
+//            }
+//            tts.speak(currentWord, TextToSpeech.QUEUE_FLUSH, null, "2");
+//        }
     }
-    private  void loadContent( Cursor c){
-        listWord.add(currentWord=c.getString(c.getColumnIndex("en_word")));
+
+    private void loadContent(Cursor c) {
+        listWord.add(currentWord = c.getString(c.getColumnIndex("en_word")));
+        listEnDifinition.add(c.getString(c.getColumnIndex("en_definition")));
         while (c.moveToNext()) {
+
             listWord.add(c.getString(c.getColumnIndex("en_word")));
+
             listEnDifinition.add(c.getString(c.getColumnIndex("en_definition")));
+            String x="empty";
+            System.out.println(x=c.getString(c.getColumnIndex("en_word"))+"::"+c.getString(c.getColumnIndex("en_definition")));
+            Log.d("%%%%LISTWORD%%%%", x);
+
         }
     }
-    private void emtylistword(Intent backtoMain, Intent backToHistory){
-        AlertDialog.Builder dialog=new AlertDialog.Builder(this);
+
+    private void emtylistword(Intent backtoMain, Intent backToHistory) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage("Your favourite word list is empty");
         dialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
@@ -115,10 +138,12 @@ public class CardGameActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-    private  void expandForWord(){
-        if(show==false)descirbeLayout.setVisibility(View.INVISIBLE);
-        else  descirbeLayout.setVisibility(View.VISIBLE);
+
+    private void expandForWord() {
+        if (show == false) descirbeLayout.setVisibility(View.INVISIBLE);
+        else descirbeLayout.setVisibility(View.VISIBLE);
     }
+
     private void openDatabase() {
         try {
             myDbHelper.openDataBase();
@@ -126,68 +151,81 @@ public class CardGameActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    void getMeaningOfCurrentWord(String word){
-        if(word=="") return;
-       this.textWord.setText(word);
-        Cursor c = myDbHelper.getMeaning(currentWord=word);
+
+    @SuppressLint("ResourceType")
+    void getMeaningOfCurrentWord(String word) {
+        for (String t :this.listWord){
+            Log.d("#####WORD####",t);
+        }
+        if (word == "") return;
+        this.textWord.setText(word);
+        Cursor c = myDbHelper.getMeaning(currentWord = word);
         DatabaseUtils.dumpCursorToString(c);
+
         if (c.moveToFirst()) {
-            textDefinition.setText( c.getString(c.getColumnIndex("en_definition")));
-           // textExample.setText(c.getString(c.getColumnIndex("example")));
+            textDefinition.setText(c.getString(c.getColumnIndex("en_definition")));
+            // textExample.setText(c.getString(c.getColumnIndex("example")));
             typeTextView.setText(c.getString(c.getColumnIndex("type")));
-            ipa_usView.setText( c.getString(c.getColumnIndex("ipa_us")));
-            ipa_ukView.setText( c.getString(c.getColumnIndex("ipa_uk")));
-            thumbnail = findViewById(R.id.image);
+            ipa_usView.setText(c.getString(c.getColumnIndex("ipa_us")));
+            ipa_ukView.setText(c.getString(c.getColumnIndex("ipa_uk")));
+          thumbnail = findViewById(R.id.image);
             String bitmap = c.getString(c.getColumnIndex("thumbnail"));
-            System.out.println("code here" +bitmap);
+            System.out.println("code here" + bitmap);
             byte[] decodedString = Base64.decode(bitmap, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             thumbnail.setImageBitmap(decodedByte);
 
-        }
-        else{
-            textDefinition.setText( listEnDifinition.get(stt-1));
+        } else {
+
+            textDefinition.setText(listEnDifinition.get(stt-1));
+//            for(String k :listEnDifinition){
+//
+//                Log.d("%%%%listEnDifinition::",k);
+//            }
+            //textDefinition.setText("UNKNOW");
             //textExample.setText("UNKNOW");
+            thumbnail.setImageResource(R.drawable.cardgame);
             typeTextView.setText("UNKNOW");
-            ipa_usView.setText( "UNKNOW");
-            ipa_ukView.setText( "UNKNOW");
-            t="UNKNOW";
+            ipa_usView.setText("UNKNOW");
+            ipa_ukView.setText("UNKNOW");
+            t = "UNKNOW";
         }
-        countCard.setText(Integer.toString(stt)+" / " +Integer.toString(listWord.size()));
+        countCard.setText(Integer.toString(stt) + " / " + Integer.toString(listWord.size()));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isLangUS= true;
+        isLangUS = true;
         setContentView(R.layout.activity_card_game);
         backBt = findViewById(R.id.backButton);
-         btnSpeakBritish = findViewById(R.id.button_speaker_british2);
-         btnSpeakAmerica = findViewById(R.id.button_speaker_america2);
-        descirbeLayout= (LinearLayout)findViewById(R.id.describeBox);
-        Intent mainIt = new Intent(this,MainActivity.class);
-        Intent backToHistory= new Intent(this,HistoryActivity.class);
-        showButton =(Button)findViewById(R.id.showButton);
+        btnSpeakBritish = findViewById(R.id.button_speaker_british2);
+        btnSpeakAmerica = findViewById(R.id.button_speaker_america2);
+        descirbeLayout = (LinearLayout) findViewById(R.id.describeBox);
+        Intent mainIt = new Intent(this, MainActivity.class);
+        Intent backToHistory = new Intent(this, HistoryActivity.class);
+        showButton = (Button) findViewById(R.id.showButton);
 
-       textDefinition=(TextView) findViewById(R.id.describeTextView);
-       //   textExample=(TextView) findViewById(R.id.exampleTextView);
-          typeTextView=(TextView)findViewById(R.id.TypeWord);
-           this.ipa_ukView=(TextView)findViewById(R.id.IPA_british2);
-            this.ipa_usView=(TextView)findViewById(R.id.IPA_america2);
-            this.textWord=(TextView)findViewById(R.id.word);
-            leftButton=(Button)findViewById(R.id.leftbutton);
-            rightButton =(Button)findViewById(R.id.rightbutton);
-            countCard=(TextView)findViewById(R.id.textView6);
-            cardGameLayout=(ConstraintLayout)findViewById(R.id.cardgamelayout);
-        this.gesture= new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
+        textDefinition = (TextView) findViewById(R.id.describeTextView);
+        //   textExample=(TextView) findViewById(R.id.exampleTextView);
+        typeTextView = (TextView) findViewById(R.id.TypeWord);
+        this.ipa_ukView = (TextView) findViewById(R.id.IPA_british2);
+        this.ipa_usView = (TextView) findViewById(R.id.IPA_america2);
+        this.textWord = (TextView) findViewById(R.id.word);
+        leftButton = (Button) findViewById(R.id.leftbutton);
+        rightButton = (Button) findViewById(R.id.rightbutton);
+        countCard = (TextView) findViewById(R.id.textView6);
+        cardGameLayout = (ConstraintLayout) findViewById(R.id.cardgamelayout);
+        this.gesture = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
-            public boolean onFling(MotionEvent me1 ,MotionEvent me2, float vx,float vy ){
-                if(me2.getX()-me1.getX()>150&& Math.abs(vx)>100){
-                afterLeftClick();
+            public boolean onFling(MotionEvent me1, MotionEvent me2, float vx, float vy) {
+                if (me2.getX() - me1.getX() > 150 && Math.abs(vx) > 100) {
+                    afterLeftClick();
                 }
-                if(me1.getX()-me2.getX()>150&& Math.abs(vx)>100){
-                afterRightClick();
+                if (me1.getX() - me2.getX() > 150 && Math.abs(vx) > 100) {
+                    afterRightClick();
                 }
-                return super.onFling(me1,me2,vx,vy);
+                return super.onFling(me1, me2, vx, vy);
             }
 
 
@@ -204,25 +242,23 @@ public class CardGameActivity extends AppCompatActivity {
             ConvertTextToSpeech();
         });
         btnSpeakAmerica.setOnClickListener(v -> {
-            isLangUS= true;
+            isLangUS = true;
             ConvertTextToSpeech();
         });
-        tts=new TextToSpeech(CardGameActivity.this, status -> {
+        tts = new TextToSpeech(CardGameActivity.this, status -> {
             // TODO Auto-generated method stub
-            if(status == TextToSpeech.SUCCESS){
-                int result=tts.setLanguage(Locale.US);
-                if(result==TextToSpeech.LANG_MISSING_DATA ||
-                        result==TextToSpeech.LANG_NOT_SUPPORTED){
+            if (status == TextToSpeech.SUCCESS) {
+                int result = tts.setLanguage(Locale.US);
+                if (result == TextToSpeech.LANG_MISSING_DATA ||
+                        result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.e("error", "This Language is not supported");
+                } else {
+                 //   ConvertTextToSpeech();
                 }
-                else{
-                    ConvertTextToSpeech();
-                }
-            }
-            else
+            } else
                 Log.e("error", "Initilization Failed!");
         });
-           myDbHelper = new com.batdaulaptrinh.completedictionary.DatabaseHelper(this);
+        myDbHelper = new com.batdaulaptrinh.completedictionary.DatabaseHelper(this);
         expandForWord();
         if (myDbHelper.checkDataBase()) {
             openDatabase();
@@ -234,15 +270,17 @@ public class CardGameActivity extends AppCompatActivity {
         showButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                show= !show;
+                show = !show;
                 expandForWord();
                 Drawable img;
-                if(!show) { img = getDrawable(R.drawable.downbutton);}
-                else {   img = getDrawable(R.drawable.upbutton);   }
+                if (!show) {
+                    img = getDrawable(R.drawable.downbutton);
+                } else {
+                    img = getDrawable(R.drawable.upbutton);
+                }
 
-               showButton.setBackground(img);
-            //    showButton.setCompoundDrawablesWithIntrinsicBounds(null, img, null, null);
-
+                showButton.setBackground(img);
+                //    showButton.setCompoundDrawablesWithIntrinsicBounds(null, img, null, null);
 
 
             }
@@ -269,16 +307,18 @@ public class CardGameActivity extends AppCompatActivity {
             }
         });
     }
-    protected void onStart()
-    {
+
+    protected void onStart() {
         super.onStart();
-        Intent mainIt = new Intent(this,MainActivity.class);
-        Intent backToHistory= new Intent(this,HistoryActivity.class);
-        Cursor c = myDbHelper.getFavourite() ;
+        Intent mainIt = new Intent(this, MainActivity.class);
+        Intent backToHistory = new Intent(this, HistoryActivity.class);
+        Cursor c = myDbHelper.getFavourite();
+
         DatabaseUtils.dumpCursorToString(c);
         if (c.moveToFirst()) loadContent(c);
-        else { emtylistword(mainIt,backToHistory);
-                    this.onStop();
+        else {
+            emtylistword(mainIt, backToHistory);
+            this.onStop();
         }
         this.getMeaningOfCurrentWord(currentWord);
     }
