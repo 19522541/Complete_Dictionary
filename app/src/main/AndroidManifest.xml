@@ -16,6 +16,7 @@
         <activity android:name=".SettingActivity" />
         <activity android:name=".CardGameActivity" />
         <activity android:name=".RememberGameActivity" />
+        <activity android:name=".QuizActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
