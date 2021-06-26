@@ -43,13 +43,7 @@ public class RememberGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_remember_game);
         backBt = findViewById(R.id.backButton);
         Intent mainIt = new Intent(this,MainActivity.class);
-        backBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setContentView(R.layout.activity_main);
-                finish();
-            }
-        });
+        
         textViewHighscore = findViewById(R.id.text_view_highscore);
         spinnerCategory = findViewById(R.id.spinner_category);
         spinnerDifficulty = findViewById(R.id.spinner_difficulty);
