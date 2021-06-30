@@ -168,7 +168,7 @@ public class CardGameActivity extends AppCompatActivity {
             typeTextView.setText(c.getString(c.getColumnIndex("type")));
             ipa_usView.setText(c.getString(c.getColumnIndex("ipa_us")));
             ipa_ukView.setText(c.getString(c.getColumnIndex("ipa_uk")));
-          thumbnail = findViewById(R.id.image);
+
             String bitmap = c.getString(c.getColumnIndex("thumbnail"));
             System.out.println("code here" + bitmap);
             byte[] decodedString = Base64.decode(bitmap, Base64.DEFAULT);
@@ -184,7 +184,7 @@ public class CardGameActivity extends AppCompatActivity {
 //            }
             //textDefinition.setText("UNKNOW");
             //textExample.setText("UNKNOW");
-            thumbnail.setImageResource(R.drawable.cardgame);
+           thumbnail.setImageResource(R.drawable.cardgame);
             typeTextView.setText("UNKNOW");
             ipa_usView.setText("UNKNOW");
             ipa_ukView.setText("UNKNOW");
@@ -201,6 +201,7 @@ public class CardGameActivity extends AppCompatActivity {
         backBt = findViewById(R.id.backButton);
         btnSpeakBritish = findViewById(R.id.button_speaker_british2);
         btnSpeakAmerica = findViewById(R.id.button_speaker_america2);
+        thumbnail = findViewById(R.id.image);
         descirbeLayout = (LinearLayout) findViewById(R.id.describeBox);
         Intent mainIt = new Intent(this, MainActivity.class);
         Intent backToHistory = new Intent(this, HistoryActivity.class);
@@ -253,7 +254,7 @@ public class CardGameActivity extends AppCompatActivity {
                         result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.e("error", "This Language is not supported");
                 } else {
-                 //   ConvertTextToSpeech();
+             //     ConvertTextToSpeech();
                 }
             } else
                 Log.e("error", "Initilization Failed!");
