@@ -16,7 +16,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="1.0"
+        android:background="@color/bgColor">
 
         <ImageButton
             android:id="@+id/backButton"
@@ -37,7 +38,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.161">
+            app:layout_constraintVertical_bias="0.161"
+            android:background="@color/bgColor">
 
             <ImageButton
                 android:id="@+id/button_speaker_america2"
@@ -68,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="Example"
+                android:textColor="@color/textColor"
                 android:textSize="34sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.386"
@@ -84,6 +87,7 @@
                 android:layout_marginTop="32dp"
                 android:padding="10dp"
                 android:text="UNKNOW"
+                android:textColor="@color/textColor"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/button_speaker_america2"
                 app:layout_constraintTop_toBottomOf="@+id/word" />
@@ -98,6 +102,7 @@
                 android:padding="10dp"
                 android:text="UNKNOW"
                 android:textSize="18sp"
+                android:textColor="@color/textColor"
                 app:layout_constraintStart_toEndOf="@+id/button_speaker_british2"
                 app:layout_constraintTop_toBottomOf="@+id/IPA_america2" />
 
@@ -117,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:text="noun"
+                android:textColor="@color/textColor"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/word"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -151,6 +157,7 @@
             android:layout_marginStart="308dp"
             android:layout_marginTop="28dp"
             android:text="TextView"
+            android:textColor="@color/textColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -170,13 +177,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@tools:sample/avatars"
+                android:background="@color/bgColor"/>
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:textColor="@color/textColor"
                 android:layout_weight="1"
                 android:text="Describe"
                 android:textSize="20sp" />
@@ -187,7 +195,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="something such as an object, a fact or a situation that shows, explains or supports what you say"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@color/textColor"/>
 
         </LinearLayout>
 

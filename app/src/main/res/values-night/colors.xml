@@ -148,10 +148,10 @@
     <color name="MediumBlue">#0000CD</color>
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
-    <color name="bgColor">#FFFFFF</color>
-    <color name="cardviewColor">#FFFFFF</color>
-    <color name="textColor">#000000</color>
-    <color name="searchColor">#000000</color>
+    <color name="Black">#000000</color>
+    <color name="bgColor">#000000</color>
+    <color name="cardviewColor">#121212</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="searchColor">#FFFFFF</color>
     <color name="cardviewToggle">#4e4e4e</color>
-
 </resources>

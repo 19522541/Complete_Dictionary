@@ -36,11 +36,11 @@
         <!-- Text Size -->
         <item name="android:textSize">20dp</item>
         <!-- Query Text Color -->
-        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorPrimary">@color/white</item>
         <!-- Hint Color -->
         <item name="android:textColorHint">@color/Gray</item>
         <!-- Icon Color -->
-        <item name="android:tint">@color/black</item>
+        <item name="android:tint">@color/white</item>
     </style>
 
 </resources>

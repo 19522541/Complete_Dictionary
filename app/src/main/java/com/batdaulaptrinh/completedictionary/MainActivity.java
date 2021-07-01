@@ -4,18 +4,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,37 +48,119 @@ public class MainActivity extends AppCompatActivity {
     CardView cardGame;
     CardView history;
     SearchView searchView;
+    Rect rect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setTheme(R.style.AppTheme);
         setting = findViewById(R.id.settingBt);
         rememberGame = findViewById(R.id.rememberGameBt);
         cardGame = findViewById(R.id.cardGameBt);
         history = findViewById(R.id.historyBt);
+
         Intent historyIt = new Intent(this, HistoryActivity.class);
         Intent settingIt = new Intent(this, SettingActivity.class);
         Intent rememberIt = new Intent(this, RememberGameActivity.class);
         Intent cardGameIt = new Intent(this, CardGameActivity.class);
-        setting.setOnClickListener(v -> {
-//            setContentView(R.layout.activity_setting);
-            startActivity(settingIt);
-        });
-        history.setOnClickListener(v -> {
-//            setContentView(R.layout.activity_history);
-            startActivity(historyIt);
-        });
-        rememberGame.setOnClickListener(v -> {
-//            setContentView(R.layout.activity_remember_game);
-            startActivity(rememberIt);
-        });
-        cardGame.setOnClickListener(v -> {
-//            setContentView(R.layout.activity_card_game);
-            startActivity(cardGameIt);
-        });
 
+
+
+
+        setting.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                RelativeLayout temp = findViewById(R.id.sBG);
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+                    int x = Color.rgb(230,230,230);
+                    setting.setCardBackgroundColor(x);
+                    temp.setBackgroundColor(getResources().getColor(R.color.cardviewToggle));
+                    return true;
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP){
+                    temp.setBackgroundColor(getResources().getColor(R.color.cardviewColor));
+                    if (rect.contains(v.getLeft() + (int) event.getX(), v.getTop() + (int) event.getY())) {
+                        // User moved outside bounds
+
+                        startActivity(settingIt);
+                    }
+
+                }
+
+                return false;
+            }
+        });
+        rememberGame.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                RelativeLayout temp = findViewById(R.id.rBG);
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+                    int x = Color.rgb(230,230,230);
+                    temp.setBackgroundColor(getResources().getColor(R.color.cardviewToggle));
+                    return true;
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP){
+                    temp.setBackgroundColor(getResources().getColor(R.color.cardviewColor));
+                    if (rect.contains(v.getLeft() + (int) event.getX(), v.getTop() + (int) event.getY())) {
+                        // User moved outside bounds
+                        startActivity(rememberIt);
+                    }
+
+                }
+
+                return false;
+            }
+        });
+        cardGame.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                RelativeLayout temp = findViewById(R.id.cBG);
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+                    int x = Color.rgb(230,230,230);
+                    temp.setBackgroundColor(getResources().getColor(R.color.cardviewToggle));
+                    return true;
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP){
+                    temp.setBackgroundColor(getResources().getColor(R.color.cardviewColor));
+                    if (rect.contains(v.getLeft() + (int) event.getX(), v.getTop() + (int) event.getY())) {
+                        // User moved outside bounds
+
+                        startActivity(cardGameIt);
+                    }
+
+                }
+
+                return false;
+            }
+        });
+        history.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                RelativeLayout temp = findViewById(R.id.hBG);
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+                    int x = Color.rgb(230,230,230);
+                    temp.setBackgroundColor(getResources().getColor(R.color.cardviewToggle));
+                    return true;
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP){
+                    temp.setBackgroundColor(getResources().getColor(R.color.cardviewColor));
+
+                    if (rect.contains(v.getLeft() + (int) event.getX(), v.getTop() + (int) event.getY())) {
+                        // User moved outside bounds
+
+                        startActivity(historyIt);
+                    }
+
+                }
+
+                return false;
+            }
+        });
 
         searchView = findViewById(R.id.search_view_id);
         ListView listView = findViewById(R.id.rs_list);

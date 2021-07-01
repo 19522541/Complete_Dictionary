@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HistoryActivity">
+    tools:context=".HistoryActivity"
+    android:background="@color/bgColor">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/bgColor">
 
         <ImageButton
             android:id="@+id/backButton"
@@ -29,7 +31,8 @@
             android:layout_margin="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_delete" />
+            app:srcCompat="@drawable/ic_delete"
+            app:tint="@color/textColor"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -46,15 +49,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
             android:gravity="center"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:background="@color/bgColor">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Words you searched most\nrecently show up here..."
                 android:textAlignment="center"
-                android:textColor="#313131"
-                android:textSize="22sp" />
+                android:textColor="@color/textColor"
+                android:textSize="22sp"
+                />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -64,6 +69,7 @@
             android:layout_marginTop="100dp"
             android:scrollbars="vertical"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-            tools:layout_editor_absoluteX="4dp" />
+            tools:layout_editor_absoluteX="4dp"
+            android:background="@color/bgColor"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

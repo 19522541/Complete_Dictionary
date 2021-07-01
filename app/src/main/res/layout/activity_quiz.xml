@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/LightYellow"
+    android:background="@color/bgColor"
     android:padding="16dp"
     tools:context=".QuizActivity">
 
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:freezesText="true"
         android:text="Score: 0"
-        android:textColor="@android:color/black" />
+        android:textColor="@color/textColor" />
 
     <TextView
         android:id="@+id/text_view_question_count"
@@ -23,7 +23,7 @@
         android:layout_below="@id/text_view_score"
         android:freezesText="true"
         android:text="Question: 1/x"
-        android:textColor="@android:color/black" />
+        android:textColor="@color/textColor" />
 
     <TextView
         android:id="@+id/text_view_category"
@@ -32,7 +32,7 @@
         android:layout_below="@id/text_view_question_count"
         android:freezesText="true"
         android:text="Category: "
-        android:textColor="@android:color/black" />
+        android:textColor="@color/textColor" />
 
     <TextView
         android:id="@+id/text_view_countdown"
@@ -42,7 +42,7 @@
         android:layout_alignParentRight="true"
         android:freezesText="true"
         android:text="00:30"
-        android:textColor="@android:color/black"
+        android:textColor="@color/textColor"
         android:textSize="40sp" />
 
     <TextView
@@ -52,7 +52,7 @@
         android:layout_below="@id/text_view_category"
         android:freezesText="true"
         android:text="Difficulty: "
-        android:textColor="@android:color/black" />
+        android:textColor="@color/textColor" />
 
     <TextView
         android:id="@+id/text_view_question"
@@ -64,7 +64,7 @@
         android:gravity="center_horizontal"
         android:text="Here will be the question text\nHere will be the question text\nHere will be the question text"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="@color/textColor"
         android:textSize="20sp" />
 
     <RadioGroup
@@ -78,21 +78,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="Option 1" />
+            android:text="Option 1"
+            android:textColor="@color/textColor"
+            android:buttonTint="@color/textColor"/>
 
         <RadioButton
             android:id="@+id/radio_button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="Option 2" />
+            android:text="Option 2"
+            android:textColor="@color/textColor"
+            android:buttonTint="@color/textColor"/>
 
         <RadioButton
             android:id="@+id/radio_button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:freezesText="true"
-            android:text="Option 3" />
+            android:text="Option 3"
+            android:textColor="@color/textColor"
+            android:buttonTint="@color/textColor"/>
     </RadioGroup>
 
     <Button

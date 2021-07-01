@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/bgColor"
     android:orientation="vertical">
 
     <ImageView
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@color/bgColor"
                 android:orientation="vertical"
                 android:paddingTop="20dp">
 
@@ -48,7 +48,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/search_bar"
-                    android:tooltipText="search here" />
+                    android:tooltipText="search here"
+                    android:theme="@style/AppSearchView"/>
                 <!-- what for ???-->
                 <ListView
                     android:id="@+id/rs_list"
@@ -73,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="161dp"
             android:layout_marginTop="220dp"
-            android:background="@color/white"
+            android:background="@color/bgColor"
             android:orientation="horizontal"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -87,11 +88,14 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="5dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
 
                 <RelativeLayout
+                    android:id="@+id/rBG"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/cardviewColor">
 
                     <TextView
                         android:id="@+id/cardGameText"
@@ -109,7 +113,8 @@
                         android:layout_marginBottom="7dp"
                         android:gravity="center_horizontal"
                         android:text="Remember Game"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"/>
 
                     <ImageView
                         android:id="@+id/rememberGameImg"
@@ -135,11 +140,14 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="5dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
 
                 <RelativeLayout
+                    android:id="@+id/sBG"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/cardviewColor">
 
                     <TextView
                         android:id="@+id/rememberGameText"
@@ -157,7 +165,8 @@
                         android:layout_marginBottom="9dp"
                         android:gravity="center_horizontal"
                         android:text="Setting"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"/>
 
                     <ImageView
                         android:id="@+id/settingImg"
@@ -183,7 +192,7 @@
             android:layout_width="match_parent"
             android:layout_height="161dp"
             android:layout_marginTop="28dp"
-            android:background="@color/white"
+            android:background="@color/bgColor"
             android:orientation="horizontal"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -197,11 +206,14 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="5dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
 
                 <RelativeLayout
+                    android:id="@+id/hBG"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/cardviewColor">
 
                     <TextView
                         android:id="@+id/homeTextView"
@@ -219,7 +231,8 @@
                         android:layout_marginBottom="13dp"
                         android:gravity="center_horizontal"
                         android:text="History"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"/>
 
                     <ImageView
                         android:id="@+id/historyImg"
@@ -245,11 +258,14 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="5dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
 
                 <RelativeLayout
+                    android:id="@+id/cBG"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/cardviewColor">
 
                     <TextView
                         android:id="@+id/history"
@@ -267,7 +283,8 @@
                         android:layout_marginBottom="13dp"
                         android:gravity="center_horizontal"
                         android:text="Card Game"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"/>
 
                     <ImageView
                         android:id="@+id/cardGameImg"

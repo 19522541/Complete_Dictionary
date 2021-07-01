@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import java.util.Locale;
 
@@ -17,6 +20,7 @@ public class SettingActivity extends AppCompatActivity {
     ImageButton backBt;
     SeekBar sbSpeed;
     TextToSpeech tts;
+    Switch aSwitch;
     public static float speed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,22 @@ public class SettingActivity extends AppCompatActivity {
         sbSpeed = findViewById(R.id.seekBar);
         sbSpeed.setProgress((int)speed*100);
         Intent mainIt = new Intent(this,MainActivity.class);
+
+        aSwitch = findViewById(R.id.darkModeSwitch);
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            aSwitch.setChecked(true);
+        }
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
         backBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
