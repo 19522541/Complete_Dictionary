@@ -130,8 +130,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public Cursor getHistory() {
-        Cursor c = myDataBase.rawQuery("select distinct  en_word, en_definition,favourite from history", null);
-        return c;
+            Cursor c = myDataBase.rawQuery("select distinct  en_word, en_definition,favourite from history", null);
+            return c;
     }
 
     public Cursor getFavourite() {
