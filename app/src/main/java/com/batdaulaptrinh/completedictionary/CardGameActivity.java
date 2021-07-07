@@ -70,6 +70,7 @@ public class CardGameActivity extends AppCompatActivity {
         stt++;
         if (stt > listWord.size()) stt = 1;
         getMeaningOfCurrentWord(listWord.get(stt - 1));
+        showButton.setBackground(getDrawable(R.drawable.downbutton));
         show = false;
         expandForWord();
 
@@ -80,6 +81,7 @@ public class CardGameActivity extends AppCompatActivity {
         stt--;
         if (stt <= 0) stt = listWord.size();
         getMeaningOfCurrentWord(listWord.get(stt - 1));
+        showButton.setBackground(getDrawable(R.drawable.downbutton));
         show = false;
         expandForWord();
     }
